@@ -1,0 +1,41 @@
+.category-card{
+
+    border:none;
+
+    border-radius:20px;
+
+    text-align:center;
+
+    padding:25px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+    height:180px;
+
+}
+
+.category-card:hover{
+
+    transform:translateY(-8px);
+
+    border-bottom:5px solid #FFC107;
+
+}
+
+.category-card h4{
+
+    color:#1565C0;
+
+    font-weight:700;
+
+}
+
+.category-card p{
+
+    color:#64748B;
+
+}
