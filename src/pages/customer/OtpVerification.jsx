@@ -20,10 +20,13 @@ function OtpVerification() {
 
         try {
 
+           
             const response = await verifyOtp({
                 email,
                 otp
             });
+             console.log("Response:", response);
+            console.log("Response Data:", response.data);
 
             localStorage.setItem("token", response.data);
 

@@ -4,29 +4,36 @@ import "./ProductCard.css";
 import { useNavigate } from "react-router-dom";
 import { addToCart } from "../../services/cartService";
 
-const handleAddToCart = async () => {
 
-    try {
-
-        const token = localStorage.getItem("token");
-
-        await addToCart(product.id, 1, token);
-
-        alert("Product added to cart");
-
-    } catch (error) {
-
-        console.log(error);
-
-        alert("Please login first");
-
-    }
-
-};
 
 function ProductCard({ product }) {
 
     const navigate = useNavigate();
+    const handleAddToCart = async () => {
+
+        try {
+
+            const token = localStorage.getItem("token");
+
+            await addToCart(
+              {
+                  productId: product.id,
+                  quantity: 1
+              },
+              token
+          );
+
+            alert("Product added to cart");
+
+        } catch (error) {
+
+            console.log(error);
+
+            alert("Please login first");
+
+        }
+
+    };
 
  const imageUrl = product.imageUrl
   ? product.imageUrl

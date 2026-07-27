@@ -8,6 +8,7 @@ import Login from "../pages/Login";
 import OtpVerification from "../pages/customer/OtpVerification";
 import ProtectedRoute from "./ProtectedRoute";
 import Orders from "../pages/customer/Orders";
+import Wishlist from "../pages/customer/Wishlist";
 
 function AppRoutes() {
   return (
@@ -20,13 +21,14 @@ function AppRoutes() {
          path="/products/:id"
             element={<ProductDetails />}
         />
-        <Route path="/cart" element={<Cart />} />
+      
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/verify-otp" element={<OtpVerification />} />
         <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
         <Route path="/orders" element={<Orders />} />
-        
+        <Route path="/wishlist" element={<Wishlist />} />
+
       </Routes>
       
     </BrowserRouter>

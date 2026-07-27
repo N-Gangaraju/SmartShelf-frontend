@@ -6,7 +6,7 @@ import { getProductById } from "../../services/productService";
 import "./ProductDetails.css";
 import { addToCart } from "../../services/cartService";
 import { toast } from "react-toastify";
-
+import { addToWishlist } from "../../services/wishlistService";
 
 
 function ProductDetails() {
@@ -30,6 +30,33 @@ function ProductDetails() {
         console.log(error);
 
         toast.error("Please login first");
+
+    }
+
+
+};
+
+
+    const handleWishlist = async () => {
+
+    try {
+
+        const token = localStorage.getItem("token");
+
+        await addToWishlist(
+            {
+                productId: product.id
+            },
+            token
+        );
+
+        toast.success("Added to Wishlist ❤️");
+
+    } catch (error) {
+
+        console.log(error);
+
+        toast.error(error.response?.data || "Unable to add");
 
     }
 
@@ -149,11 +176,13 @@ function ProductDetails() {
 
                         </Button>
 
-                        <Button variant="danger">
-
-                            <FaHeart /> Wishlist
-
-                        </Button>
+                       <Button
+                        variant="danger"
+                        onClick={handleWishlist}
+                    >
+                        <FaHeart className="me-2" />
+                        Wishlist
+                    </Button>
 
                     </div>
 

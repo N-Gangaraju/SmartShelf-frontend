@@ -44,16 +44,25 @@ function CustomNavbar() {
 
           <Nav className="me-auto ms-5">
 
-            <Nav.Link>Home</Nav.Link>
+            <Nav.Link as={Link} to="/">
+              Home
+          </Nav.Link>
 
-            <Nav.Link>Products</Nav.Link>
+          <Nav.Link as={Link} to="/products">
+              Products
+          </Nav.Link>
 
-            <Nav.Link>Categories</Nav.Link>
+          <Nav.Link as={Link} to="/categories">
+              Categories
+          </Nav.Link>
 
-            <Nav.Link>About</Nav.Link>
-            <Link to="/orders" className="nav-link">
-    My Orders
-</Link>
+           
+
+            <Nav.Link as={Link} to="/cart"> <FaShoppingCart /> Cart </Nav.Link>
+
+            <Link to="/orders" className="nav-link">  My Orders </Link>
+
+            <Nav.Link as={Link} to="/wishlist">  ❤️ Wishlist </Nav.Link>
 
           </Nav>
 
