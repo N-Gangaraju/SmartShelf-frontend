@@ -15,6 +15,7 @@ import {
 } from "react-icons/fa";
 
 import "./Navbar.css";
+import { Link } from "react-router-dom";
 
 function CustomNavbar() {
 
@@ -50,6 +51,9 @@ function CustomNavbar() {
             <Nav.Link>Categories</Nav.Link>
 
             <Nav.Link>About</Nav.Link>
+            <Link to="/orders" className="nav-link">
+    My Orders
+</Link>
 
           </Nav>
 
@@ -72,12 +76,16 @@ function CustomNavbar() {
             variant="outline-primary"
             className="me-2 login-btn"
           >
-            Login
+            <Nav.Link as={Link} to="/login">
+                Login
+            </Nav.Link>
           </Button>
 
           <Button className="register-btn">
 
-            Register
+            <Nav.Link as={Link} to="/register">
+                Register
+            </Nav.Link>
 
           </Button>
 

@@ -1,0 +1,120 @@
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
+import { toast } from "react-toastify";
+import { verifyOtp } from "../../services/userService";
+import "./OtpVerification.css";
+
+function OtpVerification() {
+
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const email = location.state?.email || "";
+
+    const [otp, setOtp] = useState("");
+
+    const handleSubmit = async (e) => {
+
+        e.preventDefault();
+
+        try {
+
+            const response = await verifyOtp({
+                email,
+                otp
+            });
+
+            localStorage.setItem("token", response.data);
+
+            toast.success("Login Successful");
+
+            navigate("/");
+
+        } catch (error) {
+
+            console.log(error);
+
+            toast.error("Invalid or Expired OTP");
+
+        }
+
+    };
+
+    return (
+
+        <div className="otp-page">
+
+            <Container>
+
+                <Row className="justify-content-center">
+
+                    <Col md={5}>
+
+                        <Card className="otp-card shadow">
+
+                            <Card.Body>
+
+                                <h2 className="text-center mb-4">
+
+                                    Verify OTP
+
+                                </h2>
+
+                                <p className="text-center text-muted">
+
+                                    OTP has been sent to
+
+                                    <br />
+
+                                    <strong>{email}</strong>
+
+                                </p>
+
+                                <Form onSubmit={handleSubmit}>
+
+                                    <Form.Group>
+
+                                        <Form.Label>Enter OTP</Form.Label>
+
+                                        <Form.Control
+                                            type="text"
+                                            maxLength={6}
+                                            placeholder="Enter 6-digit OTP"
+                                            value={otp}
+                                            onChange={(e) =>
+                                                setOtp(e.target.value)
+                                            }
+                                            required
+                                        />
+
+                                    </Form.Group>
+
+                                    <Button
+                                        className="otp-btn mt-4"
+                                        type="submit"
+                                    >
+
+                                        Verify OTP
+
+                                    </Button>
+
+                                </Form>
+
+                            </Card.Body>
+
+                        </Card>
+
+                    </Col>
+
+                </Row>
+
+            </Container>
+
+        </div>
+
+    );
+
+}
+
+export default OtpVerification;

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import SplashScreen from "./pages/SplashScreen";
 import AppRoutes from "./routes/AppRoutes";
+import{ ToastContainer } from "react-toastify";
 
 function App() {
 
@@ -18,7 +19,20 @@ function App() {
 
   }, []);
 
-  return loading ? <SplashScreen /> : <AppRoutes />;
+  return loading ? (<SplashScreen />) :(
+    <> <AppRoutes />
+   <ToastContainer
+        position="top-right"
+        autoClose={2500}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+        draggable
+        theme="light"
+    />
+    </>
+  );
 
 }
 

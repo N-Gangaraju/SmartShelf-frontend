@@ -4,12 +4,36 @@ import { Container, Row, Col, Button, Badge } from "react-bootstrap";
 import { FaShoppingCart, FaHeart, FaBolt } from "react-icons/fa";
 import { getProductById } from "../../services/productService";
 import "./ProductDetails.css";
+import { addToCart } from "../../services/cartService";
+import { toast } from "react-toastify";
+
+
 
 function ProductDetails() {
 
     const { id } = useParams();
 
     const [product, setProduct] = useState(null);
+
+    const handleAddToCart = async () => {
+
+    try {
+
+        const token = localStorage.getItem("token");
+
+        await addToCart({ productId: product.id, quantity: 1 }, token);
+
+        toast.success("Product added to cart");
+
+    } catch (error) {
+
+        console.log(error);
+
+        toast.error("Please login first");
+
+    }
+
+};
 
     useEffect(() => {
 
@@ -111,11 +135,13 @@ function ProductDetails() {
 
                     <div className="mt-4 d-flex gap-3">
 
-                        <Button variant="primary">
-
-                            <FaShoppingCart /> Add to Cart
-
-                        </Button>
+                     <Button
+                        variant="primary"
+                        onClick={handleAddToCart} >
+                        <FaShoppingCart className="me-2" />
+                        Add to Cart
+                    </Button>
+                    
 
                         <Button variant="warning">
 

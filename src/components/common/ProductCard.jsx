@@ -2,6 +2,27 @@ import { Card, Button } from "react-bootstrap";
 import { FaShoppingCart, FaHeart, FaEye } from "react-icons/fa";
 import "./ProductCard.css";
 import { useNavigate } from "react-router-dom";
+import { addToCart } from "../../services/cartService";
+
+const handleAddToCart = async () => {
+
+    try {
+
+        const token = localStorage.getItem("token");
+
+        await addToCart(product.id, 1, token);
+
+        alert("Product added to cart");
+
+    } catch (error) {
+
+        console.log(error);
+
+        alert("Please login first");
+
+    }
+
+};
 
 function ProductCard({ product }) {
 
@@ -51,17 +72,18 @@ function ProductCard({ product }) {
 
         <div className="action-buttons">
 
-          <Button className="cart-btn">
-
-            <FaShoppingCart />
-
-          </Button>
-
          <Button
              className="view-btn"
             onClick={() => navigate(`/products/${product.id}`)}
 >
              <FaEye />
+        </Button>
+
+        <Button
+             className="cart-btn"
+             onClick={handleAddToCart}
+>
+         <FaShoppingCart />
         </Button>
 
           <Button className="wish-btn">
