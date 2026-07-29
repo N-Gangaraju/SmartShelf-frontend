@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { getAllCategories } from "../services/categoryService";
 import CategoryCard from "../components/customer/CategoryCard";
 import CustomNavbar from "../components/layout/Navbar";
+import Footer from "../components/layout/Footer";
 
 function Home() {
   const [categories, setCategories] = useState([]);
@@ -113,7 +114,7 @@ const loadCategories = async () => {
       
     </section>
     
-    <section className="py-5 bg-white">
+    <section  id="categories" className="py-5 bg-white">
 
     <Container>
 
@@ -151,7 +152,11 @@ const loadCategories = async () => {
 
 </section>
 
+
 </>
+
+
+
   );
 }
 

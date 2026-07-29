@@ -1,123 +1,362 @@
-.custom-navbar{
+.navbar-wrapper{
+    background:#fff;
+    box-shadow:0 2px 10px rgba(0,0,0,.1);
+    position:sticky;
+    top:0;
+    z-index:999;
+}
 
-    background:#ffffff;
-
-    padding:18px 0;
-
-    box-shadow:0 4px 18px rgba(0,0,0,.08);
-
+.top-bar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:15px 40px;
+    position:relative;
+    z-index:1000;
 }
 
 .logo{
-
+    text-decoration:none;
     font-size:34px;
-
     font-weight:800;
-
-    letter-spacing:-1px;
-
 }
 
-.blue{
+.blue{color:#1565C0;}
+.gold{color:#F9A825;}
 
-    color:#1565C0;
-
+.search-area{
+    flex:1;
+    display:flex;
+    margin:0 40px;
+    max-width:700px;
 }
 
-.gold{
-
-    color:#FFC107;
-
-}
-
-.nav-link{
-
-    font-size:17px;
-
-    font-weight:600;
-
-    margin-right:18px;
-
-    color:#1E293B !important;
-
-    transition:.3s;
-
-}
-
-.nav-link:hover{
-
-    color:#1565C0 !important;
-
-}
-
-.search-box{
-
-    width:300px;
-
-    border-radius:30px 0 0 30px;
-
+.search-input{
+    flex:1;
+    height:46px;
     border:2px solid #1565C0;
-
+    border-right:none;
+    border-radius:30px 0 0 30px;
+    padding:0 20px;
+    outline:none;
 }
 
-.search-btn{
-
-    background:#1565C0;
-
+.search-button{
+    width:60px;
     border:none;
-
+    background:#1565C0;
+    color:#fff;
     border-radius:0 30px 30px 0;
-
-    padding:0 18px;
-
 }
 
-.search-btn:hover{
+.right-menu{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
 
-    background:#0D47A1;
+.icon-btn{
+    color:#333;
+    font-size:22px;
+    text-decoration:none;
+}
 
+.icon-btn:hover{
+    color:#1565C0;
+}
+
+.login-btn,
+.register-btn{
+    width:95px;
+    height:40px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:600;
 }
 
 .login-btn{
+    border:2px solid #1565C0;
+    color:#1565C0;
+}
 
-    border-radius:30px;
+.register-btn{
+    background:#1565C0;
+    color:white;
+}
 
-    padding:8px 22px;
+.profile-box{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-weight:600;
+    font-size:16px;
+}
+
+.profile-box svg{
+    font-size:32px;
+    color:#1565C0;
+}
+
+.bottom-bar{
+    display:flex;
+    justify-content:center;
+    gap:60px;
+    border-top:1px solid #eee;
+    padding:12px;
+    position:relative;
+    z-index:1;
+}
+
+.bottom-bar a{
+    text-decoration:none;
+    color:#333;
+    font-weight:600;
+}
+
+.bottom-bar a:hover{
+    color:#1565C0;
+}
+/* PROFILE */
+
+.profile-box{
+    position:relative;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.profile-icon{
+    font-size:34px;
+    color:#1565C0;
+}
+
+/* Dropdown */
+
+.profile-dropdown{
+
+    position:absolute;
+
+    top:55px;
+
+    right:0;
+
+    width:220px;
+
+    background:white;
+
+    border-radius:12px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.15);
+
+    display:none;
+
+    flex-direction:column;
+
+    overflow:hidden;
+
+    z-index:999999;
+
+}
+
+.profile-box:hover .profile-dropdown{
+
+    display:flex;
+
+}
+
+.profile-dropdown a{
+
+    padding:14px 18px;
+
+    text-decoration:none;
+
+    color:#333;
+
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+.profile-dropdown a:hover{
+
+    background:#1565C0;
+
+    color:white;
+
+}
+
+.logout-btn{
+
+    border:none;
+
+    background:white;
+
+    padding:14px;
+
+    text-align:left;
+
+    font-weight:600;
+
+    color:#e53935;
+
+    cursor:pointer;
+
+}
+
+.logout-btn:hover{
+
+    background:#e53935;
+
+    color:white;
+
+}
+/* ================= PROFILE ================= */
+
+.profile-box{
+    position:relative;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    cursor:pointer;
+    padding:8px 12px;
+    border-radius:10px;
+}
+
+.profile-box:hover{
+    background:#f5f7fb;
+}
+
+.profile-avatar svg{
+    font-size:40px;
+    color:#1565C0;
+}
+
+.profile-info{
+    display:flex;
+    flex-direction:column;
+    line-height:1.2;
+}
+
+.profile-info small{
+    font-size:11px;
+    color:#888;
+}
+
+.profile-info span{
+    font-size:15px;
+    font-weight:700;
+}
+
+/* Dropdown */
+
+.profile-dropdown{
+
+    position:absolute;
+
+    top:100%;
+
+    right:0;
+
+    margin-top:10px;
+
+    width:270px;
+
+    background:#fff;
+
+    border-radius:15px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.18);
+
+    overflow:hidden;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transform:translateY(10px);
+
+    transition:.25s;
+
+    z-index:99999;
+
+}
+
+.profile-box:hover .profile-dropdown,
+.profile-dropdown:hover{
+
+    opacity:1;
+
+    visibility:visible;
+
+    transform:translateY(0);
+
+}
+
+.dropdown-header{
+
+    padding:22px;
+
+    background:linear-gradient(135deg,#1565C0,#42A5F5);
+
+    color:#fff;
+
+    text-align:center;
+
+}
+
+.dropdown-avatar{
+    font-size:60px;
+}
+
+.profile-dropdown a,
+.logout-btn{
+
+    display:block;
+
+    width:100%;
+
+    padding:15px 20px;
+
+    text-decoration:none;
+
+    background:#fff;
+
+    color:#333;
+
+    border:none;
+
+    text-align:left;
+
+    cursor:pointer;
 
     font-weight:600;
 
 }
 
-.register-btn{
+.profile-dropdown a:hover{
 
-    background:#FFC107;
+    background:#1565C0;
 
-    color:#000;
-
-    border:none;
-
-    border-radius:10px;
-
-    padding:8px 10px;
-
-    font-weight:100;
+    color:#fff;
 
 }
 
-.register-btn:hover{
+.logout-btn{
 
-    background:#FFB300;
-
-}
-
-.navbar-toggler{
-
-    border:none;
+    color:#dc3545;
 
 }
 
-.navbar-toggler:focus{
+.logout-btn:hover{
 
-    box-shadow:none;
+    background:#dc3545;
+
+    color:#fff;
 
 }

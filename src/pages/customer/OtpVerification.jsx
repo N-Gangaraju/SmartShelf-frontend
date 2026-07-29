@@ -11,6 +11,7 @@ function OtpVerification() {
     const location = useLocation();
 
     const email = location.state?.email || "";
+    const username = location.state?.username || "";
 
     const [otp, setOtp] = useState("");
 
@@ -29,6 +30,8 @@ function OtpVerification() {
             console.log("Response Data:", response.data);
 
             localStorage.setItem("token", response.data);
+            localStorage.setItem("username", username);
+            localStorage.setItem("email", email);
 
             toast.success("Login Successful");
 

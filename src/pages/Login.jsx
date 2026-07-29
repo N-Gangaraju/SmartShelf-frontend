@@ -43,7 +43,8 @@ function Login() {
 
                 navigate("/verify-otp", {
                         state: {
-                            email: loginData.email
+                            email: loginData.email,
+                            username: loginData.username
                         }
                     });
 

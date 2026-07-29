@@ -1,0 +1,51 @@
+.edit-profile-card{
+
+    max-width:550px;
+
+    margin:auto;
+
+    border:none;
+
+    border-radius:18px;
+
+}
+
+.edit-profile-card h2{
+
+    font-weight:700;
+
+}
+
+.form-label{
+
+    font-weight:600;
+
+}
+
+.form-control{
+
+    height:46px;
+
+    border-radius:10px;
+
+}
+
+.save-btn{
+
+    background:#1565C0;
+
+    border:none;
+
+    height:46px;
+
+    border-radius:10px;
+
+    font-weight:600;
+
+}
+
+.save-btn:hover{
+
+    background:#0D47A1;
+
+}

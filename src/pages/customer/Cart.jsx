@@ -1,12 +1,14 @@
 import { Container, Row, Col, Card, Button, Table } from "react-bootstrap";
 import { FaTrash, FaArrowLeft, FaShoppingBag } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { getCart, removeFromCart ,updateQuantity,checkout} from "../../services/cartService";
 import "./Cart.css";
 
 function Cart() {
+
+    const navigate = useNavigate();
 
     const [cartItems, setCartItems] = useState([]);
     const [total, setTotal] = useState(0);
@@ -66,24 +68,45 @@ function Cart() {
 
     };
 
-    const handleCheckout = async () => {
+  const handleCheckout = async () => {
+
     try {
 
         const token = localStorage.getItem("token");
 
+        if (!token) {
+
+            toast.error("Please login first");
+
+            navigate("/login");
+
+            return;
+
+        }
+
         const response = await checkout(token);
 
-        toast.success(response.data);
+        toast.success(
+            response.data || "Order placed successfully"
+        );
 
-        loadCart();
+        setTimeout(() => {
+
+            navigate("/orders");
+
+        }, 1200);
 
     } catch (error) {
 
         console.log(error);
 
-        toast.error("Checkout Failed");
+        toast.error(
+            error.response?.data ||
+            "Checkout failed"
+        );
 
     }
+
 
 };
 

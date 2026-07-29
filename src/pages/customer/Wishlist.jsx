@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import {
     Container,
     Row,
@@ -10,8 +11,11 @@ import {
 import {
     FaHeart,
     FaShoppingCart,
-    FaTrash
+    FaTrash,
+    FaArrowRight
 } from "react-icons/fa";
+
+import { Link } from "react-router-dom";
 
 import {
     getWishlist,
@@ -61,13 +65,15 @@ function Wishlist() {
 
             await removeWishlist(id, token);
 
-            toast.success("Removed Successfully");
+            toast.success("Removed from wishlist");
 
             loadWishlist();
 
         } catch (error) {
 
-            toast.error("Unable to remove");
+            console.log(error);
+
+            toast.error("Unable to remove product");
 
         }
 
@@ -81,13 +87,15 @@ function Wishlist() {
 
             await moveToCart(id, token);
 
-            toast.success("Moved to Cart");
+            toast.success("Product moved to cart");
 
             loadWishlist();
 
         } catch (error) {
 
-            toast.error("Unable to move");
+            console.log(error);
+
+            toast.error("Unable to move product");
 
         }
 
@@ -95,109 +103,206 @@ function Wishlist() {
 
     return (
 
-        <Container className="py-5">
+        <div className="wishlist-page">
 
-            <h2 className="mb-4">
+            <Container className="py-5">
 
-                ❤️ My Wishlist
+                {/* HEADER */}
 
-            </h2>
+                <div className="wishlist-header">
 
-            <Row>
+                    <div>
+
+                        <h2>
+
+                            <FaHeart className="wishlist-title-icon" />
+
+                            My Wishlist
+
+                        </h2>
+
+                        <p>
+
+                            Keep your favorite products saved for later
+
+                        </p>
+
+                    </div>
+
+                    <div className="wishlist-count">
+
+                        {wishlist.length}
+
+                        <span>
+
+                            {wishlist.length === 1
+                                ? " Product"
+                                : " Products"}
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+                {/* EMPTY WISHLIST */}
 
                 {
 
-                    wishlist.length === 0 ?
+                    wishlist.length === 0
 
-                    (
+                        ?
 
-                        <Col>
+                        (
 
-                            <Card className="text-center p-5">
-
-                                <h4>
-
-                                    Wishlist is Empty
-
-                                </h4>
-
-                            </Card>
-
-                        </Col>
-
-                    )
-
-                    :
-
-                    wishlist.map(item => (
-
-                        <Col
-                            md={4}
-                            key={item.wishlistid}
-                            className="mb-4"
-                        >
-
-                            <Card className="wishlist-card">
+                            <Card className="empty-wishlist">
 
                                 <Card.Body>
 
-                                    <h5>
+                                    <div className="empty-heart">
 
-                                        {item.productName}
-
-                                    </h5>
-
-                                    <h4 className="text-primary">
-
-                                        ₹ {item.price}
-
-                                    </h4>
-
-                                    <div className="d-grid gap-2 mt-4">
-
-                                        <Button
-
-                                            variant="warning"
-
-                                            onClick={() => handleMove(item.wishlistid)}
-
-                                        >
-
-                                            <FaShoppingCart className="me-2"/>
-
-                                            Move To Cart
-
-                                        </Button>
-
-                                        <Button
-
-                                            variant="outline-danger"
-
-                                            onClick={() => handleDelete(item.wishlistid)}
-
-                                        >
-
-                                            <FaTrash className="me-2"/>
-
-                                            Remove
-
-                                        </Button>
+                                        <FaHeart />
 
                                     </div>
+
+                                    <h3>
+
+                                        Your wishlist is empty
+
+                                    </h3>
+
+                                    <p>
+
+                                        Save products you like and
+                                        come back to them anytime.
+
+                                    </p>
+
+                                    <Link
+                                        to="/products"
+                                        className="btn browse-products-btn"
+                                    >
+
+                                        Browse Products
+
+                                        <FaArrowRight className="ms-2" />
+
+                                    </Link>
 
                                 </Card.Body>
 
                             </Card>
 
-                        </Col>
+                        )
 
-                    ))
+                        :
+
+                        (
+
+                            <Row>
+
+                                {
+
+                                    wishlist.map(item => (
+
+                                        <Col
+                                            lg={4}
+                                            md={6}
+                                            key={item.wishlistid}
+                                            className="mb-4"
+                                        >
+
+                                            <Card className="wishlist-card">
+
+                                                <Card.Body>
+
+                                                    <div className="wishlist-product-icon">
+
+                                                        <FaHeart />
+
+                                                    </div>
+
+                                                    <h5>
+
+                                                        {item.productName}
+
+                                                    </h5>
+
+                                                    <p className="wishlist-label">
+
+                                                        Saved Product
+
+                                                    </p>
+
+                                                    <h3 className="wishlist-price">
+
+                                                        ₹ {item.price}
+
+                                                    </h3>
+
+                                                    <div className="wishlist-divider">
+
+                                                    </div>
+
+                                                    <div className="d-grid gap-2">
+
+                                                        <Button
+
+                                                            className="move-cart-btn"
+
+                                                            onClick={() =>
+                                                                handleMove(
+                                                                    item.wishlistid
+                                                                )
+                                                            }
+
+                                                        >
+
+                                                            <FaShoppingCart className="me-2" />
+
+                                                            Move to Cart
+
+                                                        </Button>
+
+                                                        <Button
+
+                                                            className="remove-wishlist-btn"
+
+                                                            onClick={() =>
+                                                                handleDelete(
+                                                                    item.wishlistid
+                                                                )
+                                                            }
+
+                                                        >
+
+                                                            <FaTrash className="me-2" />
+
+                                                            Remove
+
+                                                        </Button>
+
+                                                    </div>
+
+                                                </Card.Body>
+
+                                            </Card>
+
+                                        </Col>
+
+                                    ))
+
+                                }
+
+                            </Row>
+
+                        )
 
                 }
 
-            </Row>
+            </Container>
 
-        </Container>
+        </div>
 
     );
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Container, Card, Table, Button } from "react-bootstrap";
+import { Container, Card, Table, Button ,Badge,Row,Col} from "react-bootstrap";
 import { toast } from "react-toastify";
 import {
     getMyOrders,
@@ -88,14 +88,122 @@ function Orders() {
     }
 
 };
+    const getStatusVariant = (status) => {
+
+    switch (status?.toUpperCase()) {
+
+        case "PENDING":
+            return "warning";
+
+        case "CONFIRMED":
+            return "info";
+
+        case "SHIPPED":
+            return "primary";
+
+        case "DELIVERED":
+            return "success";
+
+        case "CANCELLED":
+            return "danger";
+
+        default:
+            return "secondary";
+
+    }
+
+};
 
     return (
 
         <Container className="py-5">
 
-            <h2 className="mb-4">
-                📦 My Orders
-            </h2>
+            <div className="orders-header">
+
+                <div>
+
+                    <h2>📦 My Orders</h2>
+
+                    <p>
+                        Track and manage all your purchases
+                    </p>
+
+                </div>
+
+            </div>
+
+            <Row className="mb-4">
+
+                <Col md={4} className="mb-3">
+
+                    <Card className="order-summary-card">
+
+                        <Card.Body>
+
+                            <p>Total Orders</p>
+
+                            <h3>
+                                {orders.length}
+                            </h3>
+
+                        </Card.Body>
+
+                    </Card>
+
+                </Col>
+
+                <Col md={4} className="mb-3">
+
+                    <Card className="order-summary-card">
+
+                        <Card.Body>
+
+                            <p>Active Orders</p>
+
+                            <h3>
+
+                                {
+                                    orders.filter(
+                                        order =>
+                                            order.status !== "DELIVERED" &&
+                                            order.status !== "CANCELLED"
+                                    ).length
+                                }
+
+                            </h3>
+
+                        </Card.Body>
+
+                    </Card>
+
+                </Col>
+
+                <Col md={4} className="mb-3">
+
+                    <Card className="order-summary-card">
+
+                        <Card.Body>
+
+                            <p>Delivered</p>
+
+                            <h3>
+
+                                {
+                                    orders.filter(
+                                        order =>
+                                            order.status === "DELIVERED"
+                                    ).length
+                                }
+
+                            </h3>
+
+                        </Card.Body>
+
+                    </Card>
+
+                </Col>
+
+            </Row>
 
             <Card className="shadow">
 
@@ -168,11 +276,14 @@ function Orders() {
 
                             <strong>Status : </strong>
 
-                            <span className={`status ${order.status.toLowerCase()}`}>
+                           <Badge
+                                bg={getStatusVariant(order.status)}
+                                className="order-status-badge"
+                            >
 
                                 {order.status}
 
-                            </span>
+                            </Badge> 
 
                         </div>
 

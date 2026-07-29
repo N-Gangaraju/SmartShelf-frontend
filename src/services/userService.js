@@ -16,3 +16,18 @@ export const loginUser = (loginData) => {
 export const verifyOtp=(data)=>{
     return axios.post(`${AUTH_API}/verify-otp`,data);
 };
+
+// Forgot Password
+export const forgotPassword = (email) =>
+    axios.post(
+        "http://localhost:8080/auth/forgot-password",
+        { email }
+    );
+
+
+// Reset Password
+export const resetPassword = (data) =>
+    axios.post(
+        "http://localhost:8080/auth/reset-password",
+        data
+    );

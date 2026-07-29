@@ -4,106 +4,184 @@ import {
   Container,
   Form,
   FormControl,
-  Button
+  Button,
+  NavDropdown
 } from "react-bootstrap";
 
 import {
   FaShoppingCart,
   FaHeart,
   FaUserCircle,
-  FaSearch
+  FaSearch,
+  FaUser,
+  FaBoxOpen,
+  FaShoppingBag,
+  FaSignOutAlt
 } from "react-icons/fa";
 
 import "./Navbar.css";
 import { Link } from "react-router-dom";
+import { logout } from "../../utils/auth";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+
 
 function CustomNavbar() {
 
-  const role = "GUEST";
+  
+
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
+  const[search, setSearch] = useState("");
+
+  const username = localStorage.getItem("username") || "User";
+
+  const handleLogout = () => {
+    logout();
+    localStorage.removeItem("username");
+    navigate("/login");
+
+  };
 
   return (
 
-    <Navbar
-      expand="lg"
-      className="custom-navbar"
+    <header className="navbar-wrapper">
+
+  {/* TOP BAR */}
+  <div className="top-bar">
+
+    {/* Logo */}
+    <Link to="/" className="logo">
+      <span className="blue">Razz</span>
+      <span className="gold">Stock</span>
+    </Link>
+
+   {/* Search */}
+    <form
+      className="search-area"
+      onSubmit={(e) => {
+
+        e.preventDefault();
+
+        if(search.trim()) {
+          navigate(`/search?keyword=${search}`);
+        }
+
+      }}
     >
 
-      <Container>
+      <input
+        type="text"
+        placeholder="Search for Products..."
+        className="search-input"
+        value={search}
+        onChange={(e)=>setSearch(e.target.value)}
+      />
 
-        <Navbar.Brand className="logo">
 
-          <span className="blue">Razz</span>
+      <button 
+        className="search-button"
+        type="submit"
+      >
+        <FaSearch />
+      </button>
 
-          <span className="gold">Stock</span>
 
-        </Navbar.Brand>
+    </form>
 
-        <Navbar.Toggle />
+    {/* Right */}
+    <div className="right-menu">
 
-        <Navbar.Collapse>
+      <Link to="/wishlist" className="icon-btn">
+        <FaHeart />
+      </Link>
 
-          <Nav className="me-auto ms-5">
+      <Link to="/cart" className="icon-btn">
+        <FaShoppingCart />
+      </Link>
 
-            <Nav.Link as={Link} to="/">
-              Home
-          </Nav.Link>
+      <Link to="/orders" className="icon-btn">
+        <FaShoppingBag />
+      </Link>
 
-          <Nav.Link as={Link} to="/products">
-              Products
-          </Nav.Link>
+      {!token ? (
+        <>
+          <Link to="/login" className="login-btn">
+            Login
+          </Link>
 
-          <Nav.Link as={Link} to="/categories">
-              Categories
-          </Nav.Link>
+          <Link to="/register" className="register-btn">
+            Register
+          </Link>
+        </>
+      ) : (
+       <div className="profile-box">
 
-           
+    <div className="profile-avatar">
+        <FaUserCircle />
+    </div>
 
-            <Nav.Link as={Link} to="/cart"> <FaShoppingCart /> Cart </Nav.Link>
+    <div className="profile-info">
+        <small>Hello,</small>
+        <span>{username}</span>
+    </div>
 
-            <Link to="/orders" className="nav-link">  My Orders </Link>
+    <div className="profile-dropdown">
 
-            <Nav.Link as={Link} to="/wishlist">  ❤️ Wishlist </Nav.Link>
+        <div className="dropdown-header">
 
-          </Nav>
+            <FaUserCircle className="dropdown-avatar" />
 
-          <Form className="d-flex me-4">
+            <h6>{username}</h6>
 
-            <FormControl
-              className="search-box"
-              placeholder="Search Products..."
-            />
+            <p>Welcome to RazzStock</p>
 
-            <Button className="search-btn">
+        </div>
 
-              <FaSearch />
+        <Link to="/profile">
+            👤 My Profile
+        </Link>
 
-            </Button>
+        <Link to="/orders">
+            📦 My Orders
+        </Link>
 
-          </Form>
+        <Link to="/wishlist">
+            ❤️ Wishlist
+        </Link>
 
-          <Button
-            variant="outline-primary"
-            className="me-2 login-btn"
-          >
-            <Nav.Link as={Link} to="/login">
-                Login
-            </Nav.Link>
-          </Button>
+        <button
+            className="logout-btn"
+            onClick={handleLogout}
+        >
+            🚪 Logout
+        </button>
 
-          <Button className="register-btn">
+    </div>
 
-            <Nav.Link as={Link} to="/register">
-                Register
-            </Nav.Link>
+</div>
 
-          </Button>
 
-        </Navbar.Collapse>
+      )}
 
-      </Container>
+    </div>
 
-    </Navbar>
+  </div>
 
+  {/* SECOND BAR */}
+
+  <div className="bottom-bar">
+
+    <Link to="/">Home</Link>
+
+    <Link to="/products">Products</Link>
+
+    <a href ="#categories">Categories</a>
+
+  </div>
+
+</header>
+  
   );
 
 }
