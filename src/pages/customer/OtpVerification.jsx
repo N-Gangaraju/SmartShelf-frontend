@@ -21,31 +21,34 @@ function OtpVerification() {
 
         try {
 
-           
-            const response = await verifyOtp({
-                email,
-                otp
-            });
-             console.log("Response:", response);
-            console.log("Response Data:", response.data);
+        const response = await verifyOtp({
+            email,
+            otp
+        });
 
-            localStorage.setItem("token", response.data);
-            localStorage.setItem("username", username);
-            localStorage.setItem("email", email);
+        console.log("Response:", response);
+        console.log("Response Data:", response.data);
 
-            toast.success("Login Successful");
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("username", response.data.username);
+        localStorage.setItem("email", response.data.email);
+        localStorage.setItem("role", response.data.role);
 
+        toast.success("Login Successful");
+
+        if (response.data.role === "ADMIN") {
+            navigate("/admin/dashboard");
+        } else {
             navigate("/");
-
-        } catch (error) {
-
-            console.log(error);
-
-            toast.error("Invalid or Expired OTP");
-
         }
 
-    };
+     } catch (error) {
+
+        console.log(error);
+
+        toast.error("Invalid or Expired OTP");
+    }
+        };
 
     return (
 

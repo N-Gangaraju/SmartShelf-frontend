@@ -54,3 +54,10 @@ export const sortPriceHighToLow = () =>
 
 export const getProductsPage = (page, size) =>
     axios.get(`${API}/page?page=${page}&size=${size}`);
+
+export const deleteProduct = (id, token) =>
+    axios.delete(`${API}/delete/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });

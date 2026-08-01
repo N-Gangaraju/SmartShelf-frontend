@@ -17,6 +17,9 @@ import ResetPassword from "../pages/customer/ResetPassword";
 import Categories from "../pages/customer/Categories";
 import CustomNavbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
+import Dashboard from "../pages/admin/Dashboard";
+import AdminProducts from "../pages/admin/AdminProducts";
+import AdminCategories from "../pages/admin/AdminCategories";
 
 
 function AppRoutes() {
@@ -40,7 +43,10 @@ function AppRoutes() {
         <Route path="/forgot-password" element={<ForgotPassword/>}/>
         <Route  path="/reset-password" element={<ResetPassword />}/>
         <Route path="/categories" element={<Categories />} />
-        
+        <Route path="/admin/dashboard" element={<ProtectedRoute><Dashboard/> </ProtectedRoute>}/>
+        <Route  path="/admin/products"  element={ <ProtectedRoute><AdminProducts /></ProtectedRoute>}/>
+        <Route path="/admin/categories"element={<ProtectedRoute>  <AdminCategories />  </ProtectedRoute>  }/>
+  
 
       </Routes>
       <Footer/>
