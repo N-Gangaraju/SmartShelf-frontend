@@ -91,12 +91,13 @@ function AddProductModal({ show, handleClose, refreshProducts,selectedProduct })
 
     };
 
-    const handleSubmit = async () => {
+   const handleSubmit = async () => {
 
     try {
 
         if (selectedProduct) {
 
+            // Update product details
             await axios.put(
                 `http://localhost:8080/products/update/${selectedProduct.id}`,
                 product,
@@ -107,10 +108,31 @@ function AddProductModal({ show, handleClose, refreshProducts,selectedProduct })
                 }
             );
 
+            // Upload new image if selected
+            if (image) {
+
+                const formData = new FormData();
+
+                formData.append("file", image);
+
+                await axios.post(
+                    `http://localhost:8080/products/${selectedProduct.id}/upload-image`,
+                    formData,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            "Content-Type": "multipart/form-data"
+                        }
+                    }
+                );
+
+            }
+
             toast.success("Product Updated Successfully");
 
         } else {
 
+            // Add new product
             const productResponse = await axios.post(
                 "http://localhost:8080/products/add",
                 product,
@@ -121,6 +143,7 @@ function AddProductModal({ show, handleClose, refreshProducts,selectedProduct })
                 }
             );
 
+            // Upload image
             if (image) {
 
                 const formData = new FormData();

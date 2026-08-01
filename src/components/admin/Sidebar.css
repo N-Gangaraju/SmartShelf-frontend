@@ -38,7 +38,7 @@
 
 .admin-sidebar .nav-link.active {
     background: #2563eb;
-    color: white;
+    color: rgb(244, 236, 236);
     border-left: 4px solid #ffc107;
     font-weight: 600;
 }
