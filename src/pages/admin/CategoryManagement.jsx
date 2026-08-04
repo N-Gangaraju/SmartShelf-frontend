@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Sidebar from "../../components/admin/Sidebar";
 import {
     Container,
     Row,
@@ -13,17 +14,18 @@ import {
     FaTrash
 } from "react-icons/fa";
 
-import Sidebar from "../../components/admin/Sidebar";
-import AddCategoryModal from "../../components/admin/AddCategoryModal";
-
 import {
     getAllCategories,
     deleteCategory
 } from "../../services/categoryService";
 
+import AddCategoryModal from "../../components/admin/AddCategoryModal";
+
 import { toast } from "react-toastify";
 
-function AdminCategories() {
+function CategoryManagement() {
+
+    const token = localStorage.getItem("token");
 
     const [categories, setCategories] = useState([]);
 
@@ -53,19 +55,18 @@ function AdminCategories() {
 
     const handleDelete = async (id) => {
 
-        if (!window.confirm("Delete this category?")) return;
+        if (!window.confirm("Delete this category?"))
+            return;
 
         try {
 
-            await deleteCategory(id);
+            await deleteCategory(id, token);
 
             toast.success("Category Deleted");
 
             loadCategories();
 
-        }
-
-        catch (err) {
+        } catch (err) {
 
             console.log(err);
 
@@ -79,7 +80,7 @@ function AdminCategories() {
 
         <div className="d-flex">
 
-            <Sidebar />
+            <Sidebar/>
 
             <Container fluid className="p-4">
 
@@ -95,18 +96,13 @@ function AdminCategories() {
 
                         <Button
                             onClick={() => {
-
-                                setSelectedCategory(null);
-
+                                console.log(category);
+                                setSelectedCategory(category);
                                 setShowModal(true);
-
                             }}
                         >
-
-                            <FaPlus className="me-2" />
-
+                            <FaPlus className="me-2"/>
                             Add Category
-
                         </Button>
 
                     </Col>
@@ -131,48 +127,54 @@ function AdminCategories() {
 
                     <tbody>
 
-                        {categories.map((category) => (
+                        {
 
-                            <tr key={category.id}>
+                            categories.map(category => (
 
-                                <td>{category.id}</td>
+                                <tr key={category.id}>
 
-                                <td>{category.name}</td>
+                                    <td>{category.id}</td>
 
-                                <td>
+                                    <td>{category.name}</td>
 
-                                    <Button
-                                        variant="warning"
-                                        size="sm"
-                                        className="me-2"
-                                        onClick={() => {
+                                    <td>
 
-                                            setSelectedCategory(category);
+                                        <Button
+                                            variant="warning"
+                                            size="sm"
+                                            className="me-2"
+                                            onClick={() => {
 
-                                            setShowModal(true);
+                                                setSelectedCategory(category);
 
-                                        }}
-                                    >
+                                                setShowModal(true);
 
-                                        <FaEdit />
+                                            }}
+                                        >
 
-                                    </Button>
+                                            <FaEdit/>
 
-                                    <Button
-                                        variant="danger"
-                                        size="sm"
-                                        onClick={() => handleDelete(category.id)}
-                                    >
+                                        </Button>
 
-                                        <FaTrash />
+                                        <Button
+                                            variant="danger"
+                                            size="sm"
+                                            onClick={() =>
+                                                handleDelete(category.id)
+                                            }
+                                        >
 
-                                    </Button>
+                                            <FaTrash/>
 
-                                </td>
+                                        </Button>
 
-                            </tr>
+                                    </td>
 
-                        ))}
+                                </tr>
+
+                            ))
+
+                        }
 
                     </tbody>
 
@@ -181,14 +183,11 @@ function AdminCategories() {
                 <AddCategoryModal
                     show={showModal}
                     handleClose={() => {
-
                         setShowModal(false);
-
                         setSelectedCategory(null);
-
                     }}
-                    selectedCategory={selectedCategory}
                     refreshCategories={loadCategories}
+                    selectedCategory={selectedCategory}
                 />
 
             </Container>
@@ -199,4 +198,4 @@ function AdminCategories() {
 
 }
 
-export default AdminCategories;
+export default CategoryManagement;

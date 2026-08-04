@@ -20,7 +20,7 @@ import Footer from "../components/layout/Footer";
 import Dashboard from "../pages/admin/Dashboard";
 import AdminProducts from "../pages/admin/AdminProducts";
 import AdminCategories from "../pages/admin/AdminCategories";
-
+import SupplierManagement from "../pages/admin/SupplierManagement";
 
 function AppRoutes() {
   return (
@@ -46,8 +46,8 @@ function AppRoutes() {
         <Route path="/admin/dashboard" element={<ProtectedRoute><Dashboard/> </ProtectedRoute>}/>
         <Route  path="/admin/products"  element={ <ProtectedRoute><AdminProducts /></ProtectedRoute>}/>
         <Route path="/admin/categories"element={<ProtectedRoute>  <AdminCategories />  </ProtectedRoute>  }/>
-  
-
+        <Route path="/admin/categories" element={<ProtectedRoute><AdminCategories /></ProtectedRoute>}/>
+        <Route path="/admin/suppliers" element={<ProtectedRoute><SupplierManagement /></ProtectedRoute>}/>
       </Routes>
       <Footer/>
       

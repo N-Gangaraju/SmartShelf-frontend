@@ -14,38 +14,40 @@ import {
 } from "react-icons/fa";
 
 import Sidebar from "../../components/admin/Sidebar";
-import AddCategoryModal from "../../components/admin/AddCategoryModal";
+import AddSupplierModal from "../../components/admin/AddSupplierModal";
 
 import {
-    getAllCategories,
-    deleteCategory
-} from "../../services/categoryService";
+    getAllSuppliers,
+    deleteSupplier
+} from "../../services/supplierService";
 
 import { toast } from "react-toastify";
 
-function AdminCategories() {
+function SupplierManagement() {
 
-    const [categories, setCategories] = useState([]);
+    const [suppliers, setSuppliers] = useState([]);
 
     const [showModal, setShowModal] = useState(false);
 
-    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedSupplier, setSelectedSupplier] = useState(null);
 
     useEffect(() => {
-        loadCategories();
+        loadSuppliers();
     }, []);
 
-    const loadCategories = async () => {
+    const loadSuppliers = async () => {
 
         try {
 
-            const response = await getAllCategories();
+            const response = await getAllSuppliers();
 
-            setCategories(response.data);
+            setSuppliers(response.data);
 
         } catch (err) {
 
             console.log(err);
+
+            toast.error("Unable to Load Suppliers");
 
         }
 
@@ -53,23 +55,21 @@ function AdminCategories() {
 
     const handleDelete = async (id) => {
 
-        if (!window.confirm("Delete this category?")) return;
+        if (!window.confirm("Delete this supplier?")) return;
 
         try {
 
-            await deleteCategory(id);
+            await deleteSupplier(id);
 
-            toast.success("Category Deleted");
+            toast.success("Supplier Deleted Successfully");
 
-            loadCategories();
+            loadSuppliers();
 
-        }
-
-        catch (err) {
+        } catch (err) {
 
             console.log(err);
 
-            toast.error("Unable to Delete Category");
+            toast.error("Unable to Delete Supplier");
 
         }
 
@@ -87,7 +87,7 @@ function AdminCategories() {
 
                     <Col>
 
-                        <h2>Category Management</h2>
+                        <h2>Supplier Management</h2>
 
                     </Col>
 
@@ -96,7 +96,7 @@ function AdminCategories() {
                         <Button
                             onClick={() => {
 
-                                setSelectedCategory(null);
+                                setSelectedSupplier(null);
 
                                 setShowModal(true);
 
@@ -105,7 +105,7 @@ function AdminCategories() {
 
                             <FaPlus className="me-2" />
 
-                            Add Category
+                            Add Supplier
 
                         </Button>
 
@@ -113,7 +113,7 @@ function AdminCategories() {
 
                 </Row>
 
-                <Table bordered hover>
+                <Table bordered hover responsive>
 
                     <thead>
 
@@ -123,6 +123,12 @@ function AdminCategories() {
 
                             <th>Name</th>
 
+                            <th>Email</th>
+
+                            <th>Phone</th>
+
+                            <th>Address</th>
+
                             <th>Actions</th>
 
                         </tr>
@@ -131,13 +137,19 @@ function AdminCategories() {
 
                     <tbody>
 
-                        {categories.map((category) => (
+                        {suppliers.map((supplier) => (
 
-                            <tr key={category.id}>
+                            <tr key={supplier.id}>
 
-                                <td>{category.id}</td>
+                                <td>{supplier.id}</td>
 
-                                <td>{category.name}</td>
+                                <td>{supplier.name}</td>
+
+                                <td>{supplier.email}</td>
+
+                                <td>{supplier.phone}</td>
+
+                                <td>{supplier.address}</td>
 
                                 <td>
 
@@ -147,7 +159,7 @@ function AdminCategories() {
                                         className="me-2"
                                         onClick={() => {
 
-                                            setSelectedCategory(category);
+                                            setSelectedSupplier(supplier);
 
                                             setShowModal(true);
 
@@ -161,7 +173,7 @@ function AdminCategories() {
                                     <Button
                                         variant="danger"
                                         size="sm"
-                                        onClick={() => handleDelete(category.id)}
+                                        onClick={() => handleDelete(supplier.id)}
                                     >
 
                                         <FaTrash />
@@ -178,17 +190,17 @@ function AdminCategories() {
 
                 </Table>
 
-                <AddCategoryModal
+                <AddSupplierModal
                     show={showModal}
                     handleClose={() => {
 
                         setShowModal(false);
 
-                        setSelectedCategory(null);
+                        setSelectedSupplier(null);
 
                     }}
-                    selectedCategory={selectedCategory}
-                    refreshCategories={loadCategories}
+                    selectedSupplier={selectedSupplier}
+                    refreshSuppliers={loadSuppliers}
                 />
 
             </Container>
@@ -199,4 +211,4 @@ function AdminCategories() {
 
 }
 
-export default AdminCategories;
+export default SupplierManagement;
