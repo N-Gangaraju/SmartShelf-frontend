@@ -31,3 +31,11 @@ export const resetPassword = (data) =>
         "http://localhost:8080/auth/reset-password",
         data
     );
+
+export const getAllUsers = (token) => {
+    return axios.get(`${USER_API}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+};    

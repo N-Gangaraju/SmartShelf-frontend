@@ -25,7 +25,7 @@ import {
     getTopSellingProducts,
     getTopCustomers
 } from "../../services/dashboardService";
-
+import "./Dashboard.css";
 
 function Dashboard() {
 

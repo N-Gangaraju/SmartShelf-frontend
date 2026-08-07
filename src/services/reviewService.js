@@ -48,3 +48,16 @@ export const getAverageRating = (productId) => {
         `${BASE_URL}/product/${productId}/rating`
     );
 };
+
+export const getAllReviews = (token) => {
+
+    return axios.get(
+        BASE_URL,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    );
+
+};

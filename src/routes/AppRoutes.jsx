@@ -22,6 +22,8 @@ import AdminProducts from "../pages/admin/AdminProducts";
 import AdminCategories from "../pages/admin/AdminCategories";
 import SupplierManagement from "../pages/admin/SupplierManagement";
 import OrderManagement from "../pages/admin/OrderManagement";
+import CustomerManagement from "../pages/admin/CustomerManagement";
+import Reviews from "../pages/admin/Reviews";
 
 function AppRoutes() {
   return (
@@ -50,7 +52,8 @@ function AppRoutes() {
         <Route path="/admin/categories" element={<ProtectedRoute><AdminCategories /></ProtectedRoute>}/>
         <Route path="/admin/suppliers" element={<ProtectedRoute><SupplierManagement/></ProtectedRoute>}/>
         <Route path="/admin/orders"element={<ProtectedRoute><OrderManagement /></ProtectedRoute>}/>
-
+        <Route path="/admin/customers" element={<ProtectedRoute><CustomerManagement /></ProtectedRoute>}/>
+        <Route path="/admin/reviews" element={<ProtectedRoute><Reviews /></ProtectedRoute>}/>
       </Routes>
       <Footer/>
       

@@ -1,36 +1,40 @@
-import { Card } from "react-bootstrap";
+import {Card} from "react-bootstrap";
 
-function DashboardCard({ title, value, icon }) {
 
-    return (
+function DashboardCard({title,value,icon}){
 
-        <Card className="dashboard-card">
+return (
 
-            <Card.Body>
+<Card className="dashboard-card shadow-sm">
 
-                <div className="d-flex justify-content-between">
+<Card.Body>
 
-                    <div>
+<div className="d-flex justify-content-between align-items-center">
 
-                        <h6>{title}</h6>
 
-                        <h2>{value}</h2>
+<div>
 
-                    </div>
+<h6>{title}</h6>
 
-                    <div className="card-icon">
+<h3>{value}</h3>
 
-                        {icon}
+</div>
 
-                    </div>
 
-                </div>
+<div className="dashboard-icon">
 
-            </Card.Body>
+{icon}
 
-        </Card>
+</div>
 
-    );
+
+</div>
+
+</Card.Body>
+
+</Card>
+
+);
 
 }
 
