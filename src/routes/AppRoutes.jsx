@@ -21,6 +21,7 @@ import Dashboard from "../pages/admin/Dashboard";
 import AdminProducts from "../pages/admin/AdminProducts";
 import AdminCategories from "../pages/admin/AdminCategories";
 import SupplierManagement from "../pages/admin/SupplierManagement";
+import OrderManagement from "../pages/admin/OrderManagement";
 
 function AppRoutes() {
   return (
@@ -45,9 +46,11 @@ function AppRoutes() {
         <Route path="/categories" element={<Categories />} />
         <Route path="/admin/dashboard" element={<ProtectedRoute><Dashboard/> </ProtectedRoute>}/>
         <Route  path="/admin/products"  element={ <ProtectedRoute><AdminProducts /></ProtectedRoute>}/>
-        <Route path="/admin/categories"element={<ProtectedRoute>  <AdminCategories />  </ProtectedRoute>  }/>
+        <Route path="/admin/categories"element={<ProtectedRoute><AdminCategories /></ProtectedRoute>  }/>
         <Route path="/admin/categories" element={<ProtectedRoute><AdminCategories /></ProtectedRoute>}/>
-        <Route path="/admin/suppliers" element={<ProtectedRoute><SupplierManagement /></ProtectedRoute>}/>
+        <Route path="/admin/suppliers" element={<ProtectedRoute><SupplierManagement/></ProtectedRoute>}/>
+        <Route path="/admin/orders"element={<ProtectedRoute><OrderManagement /></ProtectedRoute>}/>
+
       </Routes>
       <Footer/>
       

@@ -35,3 +35,23 @@ export const downloadInvoice = (orderId, token) => {
     );
 
 };
+export const getAllOrders = (token) => {
+    console.log("Token =", token);
+
+    return axios.get(API, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+};
+export const updateOrderStatus = (orderId, status, token) => {
+    return axios.put(
+        `${API}/${orderId}/status`,
+        { status },
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    );
+};
